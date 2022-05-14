@@ -35,6 +35,12 @@ public class ViewPortHandler {
      * maximum scale value on the y-axis
      */
     private float mMaxScaleY = Float.MAX_VALUE;
+ private int mMaxOffsetLeft = 0;
+
+ public void setMaxOffsetLeft(int offsetLeft) {
+        mMaxOffsetLeft = offsetLeft;
+    }
+
 
     /**
      * minimum scale value on the x-axis
@@ -110,11 +116,16 @@ public class ViewPortHandler {
             return false;
     }
 
-    public void restrainViewPort(float offsetLeft, float offsetTop, float offsetRight,
+   public void restrainViewPort(float offsetLeft, float offsetTop, float offsetRight,
                                  float offsetBottom) {
+        if (mMaxOffsetLeft != 0) {
+            offsetLeft = mMaxOffsetLeft;
+        }
         mContentRect.set(offsetLeft, offsetTop, mChartWidth - offsetRight, mChartHeight
                 - offsetBottom);
     }
+
+
 
     public float offsetLeft() {
         return mContentRect.left;
